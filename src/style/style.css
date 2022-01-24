@@ -1,0 +1,134 @@
+.li{
+    font-size: 1.5rem; 
+    color: cornflowerblue;
+}
+.titles{
+    background:no-repeat url("https://picsum.photos/id/249/2000/200");
+    background-size: cover;
+    padding: 50px;
+    
+}
+.round-top{
+    border-radius: 10px 10px 0px 0px;
+}
+.round-end{
+    border-radius: 0px 0px 10px 10px;
+    box-shadow: 0 1px 3px rgba(3,0,71,.09)!important
+}
+.rounds{
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 1px 3px rgba(3,0,71,.09)!important
+}
+body{
+    /* background:#ecebf1; */
+}
+.img{
+    position: relative;
+    
+    transform: translateY(-30px);
+    border-radius:50%;
+    overflow: hidden;
+    object-fit: cover;
+    
+}
+.imgs{
+    position: relative;
+    border-radius:50%;
+    overflow: hidden;
+    object-fit: cover;
+}
+.imgx{
+    position: relative;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.dash{
+    transform: translateY(-30px);
+}
+
+.top{
+    transform: translateY(9px)
+}
+
+.taile{
+    transform: translateY(-11px)
+}
+
+.t1{
+    line-height: inherit; color:white; font-weight: bold;
+}
+.t2{
+    line-height: inherit;color:hsla(0,0%,100%,.5)!important;
+}
+.c1{ background-color: #754ffe;}
+.r1{
+    transform: translateY(-25px)
+}
+.p1{
+    width: 100%; height: 100%; object-fit: cover;
+}
+.p2{
+    margin-bottom: 5rem;
+}
+.t3{
+    background-color:white;
+    transform: translateY(-40px)
+    
+}
+.t6{
+    transform: translateY(-40px)
+}
+.b1{
+    background-color:white;
+}
+.r5{
+    border-radius: 10px 10px 10px 10px;
+   
+}
+@media screen and (min-width:  800px) {
+    .m5{
+        margin-left: 7rem;
+    }
+}
+
+@media screen and (max-width:  800px) {
+    .m10{
+        margin-bottom: 2rem;
+    }
+}
+.x1:hover{transform: translateY(-20px) ; }
+.x1{transition: .3s; cursor: pointer;}
+.h7{ display: none; transition : .3s;}
+
+
+.j1:hover>.dropdown-menu{
+    display: block!important;
+    animation: slide .5s  ;
+}
+
+.l1{
+    height: 200px;
+    overflow-y: auto;
+}
+
+@keyframes slide {
+    from {
+        transform: translateY(30px);
+        opacity: 0.5;
+    }
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(30px);
+    }
+}
+
