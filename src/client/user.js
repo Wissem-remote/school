@@ -52,7 +52,7 @@ const Contents = ()=>{
 
 const Board=()=>{
     const [setting,setSetting]=useState(0)
-    const [work]=useState([ <Create />,<Pass/>,<Parms/>,<MyCreate/>,<Suivi/>,<Msg/>])
+    const [work]=useState([ <Create />,<Pass/>,<Parms/>,<MyCreate/>,<Suivi/>,<Msg/>,<Learn/>])
     return<>
         <div className="row mt-4">
             <div className="col-sm-3">
@@ -76,6 +76,7 @@ return<>
                                     <button type="button" className="list-group-item list-group-item-action" style={{borderBottom:'none'}} onClick={()=>{set(3)}} >Mes Créations</button>
                                     <button type="button" className="list-group-item list-group-item-action" style={{borderBottom:'none'}} onClick={()=>{set(4)}} >Mes Suivis</button>
                                     <button type="button" className="list-group-item list-group-item-action" style={{borderBottom:'none'}} onClick={()=>{set(5)}} >Mes Messages</button>
+                                    <button type="button" className="list-group-item list-group-item-action" style={{borderBottom:'none'}} onClick={()=>{set(6)}} >Apprentissage</button>
 
                                     <button type="button" className="list-group-item list-group-item-action"></button>
                             </div>
@@ -91,6 +92,92 @@ const Work=({children})=>{
     </>
 }
 
+const Learn=()=>{
+    const[users]=useData()
+    const[index]=useIndex()
+    const[form]=useForm()
+    return<>
+    <div>
+        <h3 className="fw-light p-3">Mes Cours </h3>
+    </div>
+        <hr/>
+        <div className="row p-4">
+           
+            {form?.data.map((v,i)=>{
+            return users?.data[index].learn.includes(v.id)&& <Card key={i} form={v}/>
+        })}
+            
+        </div>
+    </>
+}
+const Card =({form})=>{
+    const [forms]=useForm()
+    const navigate = useNavigate()
+  
+    
+    const handleImg=()=>{
+        
+        const index =forms?.data.includes(form) &&  forms?.data.indexOf(form)
+        
+        
+        navigate("/coures", { state:{values: index }})
+    }
+    const mutation = useMutation(formData => {
+        return axios.post('http://localhost:2000/form/update', formData)
+            
+        })
+    const onSubmit=(e)=>{
+        e.preventDefault()
+        const values =Object.fromEntries(new FormData(e.target))
+        console.log(values.note)
+            const value={
+                id:form.id,
+                note: parseInt(values.note),
+                nbNote: form.nbNote + 1
+            }
+            mutation.mutate(value)
+            
+    }
+
+return<>
+            <div className="col-4 x1">
+                <div className="card">
+                    <img onClick={handleImg} src={`/img/${form.type}.jpg`} className="card-img-top imgx" alt="cours" width="70px" height="70px"/>
+                   
+                        <div className="card-body ">
+                            <h5 className="card-title">{form.titreVideo}</h5>
+                            
+                            <form onSubmit={onSubmit}>
+                            <div className="col-12 d-flex justify-content-center  ">
+
+                                <div className="form-check form-check-inline ">
+                                <input className="form-check-input " type="radio"  name="note" value="1"/>
+                                <label className="form-check-label " htmlFor="star1">1</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                <input className="form-check-input" type="radio" name="note"  value="2"/>
+                                <label className="form-check-label " htmlFor="star2">2</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                <input className="form-check-input" type="radio" name="note" value="3" />
+                                <label className="form-check-label " htmlFor="star3">3</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                <input className="form-check-input" type="radio" name="note" value="4" />
+                                <label className="form-check-label " htmlFor="note">4</label>
+                                </div>
+                                </div> 
+                                    <button className="btn-sm btn-primary float-end"> Noter ?</button>
+                            </form>
+                            
+                           
+                        </div>
+                        
+                </div>
+               
+            </div>
+    </>
+}
 const Msg=()=>{
     const[user]=useData()
     const[index]=useIndex()
@@ -532,6 +619,8 @@ const Cards =({form,opacity=true , suivi=false})=>{
         
         
     }
+
+    
     return<>
             <div className={opacity?"col-3 opacity-75 x1":"col-3 x1"}>
                 <div className="card">
@@ -546,6 +635,8 @@ const Cards =({form,opacity=true , suivi=false})=>{
             </div>
     </>
 }
+
+
 const Title=()=>{
     const[user]=useData()
     const[index]=useIndex()

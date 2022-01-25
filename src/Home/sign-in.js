@@ -74,7 +74,7 @@ const Content = ({check,handleClick,email,pass,handleEmail,handlePassword})=>{
                 <Field onChange={handlePassword} type="password"   name="password" pass={pass.pass} span={pass.pass && "Password Success !"} required >Créer votre Password</Field>
                 
 
-                <label className=" form-check-label fw-lighter mt-2" >Avez-vous oublié votre password ? <Link to="/" className="fw-normal text-decoration-none">Ici</Link></label>
+                <label className=" form-check-label fw-lighter mt-2" >Deja Inscrit ? <Link to="/sign-up" className="fw-normal text-decoration-none">Ici</Link></label>
                 
                 <div className="d-grid gap-2 d-md-flex justify-content-md-center">
                 <button className={email.pass ?"btn btn-primary mt-2 w-50 ":"btn btn-primary mt-2 w-50   disabled"} onClick={handleClick}> Connecter-Vous</button>

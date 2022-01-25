@@ -54,7 +54,7 @@ export const Sign = ()=> {
             event.preventDefault()
             
             const value =Object.fromEntries(new FormData(event.target))
-            Object.assign(value,{img:"https://picsum.photos/id/823",follow:[],msg:[]})
+            Object.assign(value,{img:"https://picsum.photos/id/823",follow:[],msg:[],learn:[]})
 
             mutation.mutate(value)
             

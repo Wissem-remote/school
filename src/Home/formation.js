@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import {NavBar} from '../App/navBar/index'
-import { useData } from '../hook/data'
+import { useData, useIndex } from '../hook/data'
 import {useLocation,useNavigate} from 'react-router-dom';
 import { useForm } from '../hook/form';
 import {useToggle} from '../hook/toggle'
 import { Modal } from '../ui/modal'
 import YouTube from 'react-youtube'
 import getYouTubeID from 'get-youtube-id';
+import { useMutation } from 'react-query';
+import axios from 'axios';
 
 export const Forma= ()=> {
     const[user]=useData()
@@ -24,7 +26,7 @@ export const Forma= ()=> {
 
     return <>
 
-        <NavBar data={user} search={true}/>
+        <NavBar data={user} search={true} logout={false}/>
         <Container />
     </>
 }
@@ -178,13 +180,42 @@ return<>
 const Card=()=>{
     const[form]=useForm()
     const location = useLocation()
+    const[users]=useData()
+    const[inde]=useIndex()
+    const navigate = useNavigate()
+    const [check,setCheck]=useState(false)
     const index =location.state
+    const mutation = useMutation(formData => {
+        return axios.post('http://localhost:2000/user/update', formData)
+            
+        })
+        
+        
+        useEffect(()=>{
+            
+            (users && users?.data[inde].learn.includes(form?.data[index.values].id))? setCheck(true): setCheck(false)
+        },[users,form,inde,index.values])
+
+    const handleClick=()=>{
+        let tab = users ? users?.data[inde].learn : []
+        tab.push(form?.data[index.values].id)
+        const values={
+                    user:users? users?.data[inde].user: " ",
+                    learn: tab
+                }
+            return users ?  (()=>{ mutation.mutate(values); window.location.reload()})(): navigate("/sign-in")
+
+    }
     
     return<>
     <div className="rounds b1 p-2">
-    <img src={`/img/${form?.data[index.values].type}.jpg`} className="card-img-top r5 mt-2 mb-3" alt="logo"/>
+    <img src={`/img/${form?.data[index.values].type}.jpg`}  className="card-img-top r5 mt-2 mb-3" alt="logo"/>
             <div className="d-grid gap-2 col-10 m-auto mb-4">
-                <button className={form?.data[index.values].tarif === "free"?"btn btn-primary":"btn btn-primary disabled"} type="button">{form?.data[index.values].tarif === "free"? "Gratuit": "Payer"}</button>
+                {check?
+                <button   className={form?.data[index.values].tarif === "free"?"btn btn-primary disabled":"btn btn-primary disabled"} type="button">{form?.data[index.values].tarif === "free"? "Ajouter": "Payer"}</button>:
+                <button onClick={handleClick}   className={form?.data[index.values].tarif === "free"?"btn btn-primary":"btn btn-primary disabled"} type="button">{form?.data[index.values].tarif === "free"? "Ajouter": "Payer"}</button>
+
+                }
                 <span className="text-info fw-bold fs-3 text-center">{form?.data[index.values].tarif === "pay" && form?.data[index.values].price+"$"}</span>
             </div>
     </div>
@@ -193,9 +224,12 @@ const Card=()=>{
 }
 
 const Teacher = ()=>{
+    
     const[form]=useForm()
+    
     const location = useLocation()
     const index =location.state
+   
     return<>
       <div className="rounds b1 p-2 mt-3">
         <div className="row">

@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useData, useIndex } from '../../hook/data'
 
-export const NavBar = ({check,value,search=false,data})=> {
+export const NavBar = ({check,value,search=false,data,logout=true})=> {
   const[index]=useIndex()
  
     return <>
@@ -32,7 +32,7 @@ export const NavBar = ({check,value,search=false,data})=> {
         </li>
         
         <li className="nav-item j1 ">
-          {data?<DropLink item={true} ><img className="top img" alt="avatar" width="35px" height="35px"src={data?.data[index].img+"/35/35"}/></DropLink> :<Link className="nav-link" to="/sign-in"> | Sign-In</Link>}
+          {data?<DropLink item={true} log={logout}><img className="top img" alt="avatar" width="35px" height="35px"src={data?.data[index].img+"/35/35"}/></DropLink> :<Link className="nav-link" to="/sign-in"> | Sign-In</Link>}
           
          
         </li>
@@ -48,7 +48,7 @@ const List = ()=>{
      <ul className="navbar-nav">
         
         <li className="nav-item">
-          <Link to="/" className="nav-link active" >Home</Link>
+          <Link to="/" className="nav-link " >Home</Link>
         </li>
        
         <DropList />
@@ -82,13 +82,12 @@ return<>
 
 
 const Lists=({children})=>{
- 
  return<>
-   <li><a href="#link-out" onClick={()=>{(()=> { localStorage.clear(); window.location.reload();})()}} className="dropdown-item">{children}</a></li>
+   <li><a href="#link-out" onClick={()=>{(()=> { localStorage.clear(); window.location.reload()})()}} className="dropdown-item">{children}</a></li>
  </>
 }
 
-const DropLink=({children,item=false})=>{
+const DropLink=({children,item=false,log})=>{
   const[index]=useIndex()
   const[users]=useData()
   return<>
@@ -96,14 +95,14 @@ const DropLink=({children,item=false})=>{
               {children}
             </a>
             {item&&
-             <ul className="dropdown-menu j2 mt-3 rounds " style={{right:'0px', left:'auto'}} aria-labelledby="navbar">
-             <li><a href="#link-out" className="dropdown-item">Hello ! {users?.data[index].user}</a></li>
-             <ListLink to={"/user"}>Profils</ListLink>
-             <Lists>Deconnecter Vous</Lists>
-             
-             </ul>
+              <ul className="dropdown-menu j2 mt-3 rounds " style={{right:'0px', left:'auto'}} aria-labelledby="navbar">
+              <li><a href="#link-out" className="dropdown-item">Hello ! {users?.data[index].user}</a></li>
+              <ListLink to={"/user"}>Profils</ListLink>
+              {log?<Lists>Deconnecter Vous</Lists>:""}
+              
+              </ul>
             }
-           
+
             
   </>
 }
@@ -122,13 +121,15 @@ const DropNot = ({children})=>{
     <ul className="list-unstyled col-11 m-auto">
   {user?.data[index].msg.map((v,i)=>{
                 
-                return v.length > 0 &&<Link to="/user" className="text-decoration-none">
-                  <div key={i} className="alert alert-primary mb-1 " role="alert">
+                return v.length > 0 &&<li key={i} className="text-decoration-none">
+                  <Link  to="/user" className="text-decoration-none">
+                  <div  className="alert alert-primary mb-1 " role="alert">
                 {v}
                 
                 </div>
 
                 </Link>
+                </li>
             })} 
       </ul>
   </div>
