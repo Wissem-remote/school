@@ -59,7 +59,7 @@ export const Sign = ()=> {
             mutation.mutate(value)
             
             // envoie d'email service_v5vlsiz
-            console.log(value)
+            //console.log(value)
             
             emailjs.send("service_v5vlsiz", "template_ogxbv29", value, "user_QNXIj26L8qANd6vZ9HRZB")
             .then((res)=>{

@@ -96,6 +96,7 @@ const Learn=()=>{
     const[users]=useData()
     const[index]=useIndex()
     const[form]=useForm()
+   
     return<>
     <div>
         <h3 className="fw-light p-3">Mes Cours </h3>
@@ -113,7 +114,7 @@ const Learn=()=>{
 const Card =({form})=>{
     const [forms]=useForm()
     const navigate = useNavigate()
-  
+    const [add,setAdd]=useToggle(false)
     
     const handleImg=()=>{
         
@@ -146,7 +147,8 @@ return<>
                    
                         <div className="card-body ">
                             <h5 className="card-title">{form.titreVideo}</h5>
-                            
+                            <button className="btn btn-primary" onClick={setAdd}> Noter ?</button>
+                            {add&&<Modal title={"Noter ?"} onClose={setAdd} sup={false}>
                             <form onSubmit={onSubmit}>
                             <div className="col-12 d-flex justify-content-center  ">
 
@@ -167,8 +169,11 @@ return<>
                                 <label className="form-check-label " htmlFor="note">4</label>
                                 </div>
                                 </div> 
+                                <hr/>
                                     <button className="btn-sm btn-primary float-end"> Noter ?</button>
                             </form>
+                                </Modal>}
+                           
                             
                            
                         </div>

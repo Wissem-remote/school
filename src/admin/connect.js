@@ -54,11 +54,11 @@ const NabarDarck = ({checks,set})=>{
                             
                             
                             <li className="nav-item">
-                            <a href="#form" className="nav-link active" aria-current="page" onClick={()=>{set(0)}} > Formation</a>
+                            <span className="nav-link active n5" aria-current="page" onClick={()=>{set(0)}} > Formation</span>
                             </li>
 
                             <li className="nav-item">
-                            <a href="#form" className="nav-link active" aria-current="page" onClick={()=>{set(1)}} > Client</a>
+                            <span className="nav-link active n5" aria-current="page" onClick={()=>{set(1)}} > Client</span>
                             </li>
 
 
@@ -93,7 +93,7 @@ const Client = ()=>{
         </tr>
     </thead>
     <tbody>
-            {datAdmin?.data.map((v,i) =>{
+            {datAdmin?.data.slice(0).reverse().map((v,i) =>{
                 return <List key={i} value={v} index={i}/>
             })}
     </tbody>
@@ -102,12 +102,19 @@ const Client = ()=>{
 }
 
 const List = ({value,index})=>{
-
+    const[day,setDay]=useToggle(false)
     const[add,setAdd]=useToggle(false)
     const mutation = useMutation(formData => {
         return axios.post('http://localhost:2000/user/update', formData)
             
         })
+        const {mutate}= useMutation(()=>{
+            return axios.delete(`http://localhost:2000/user/delete/${value.user}`) 
+            
+            })
+            const handleDelete=()=>{
+                (()=> { mutate();  window.location.reload()})()
+            }
 
         const onSubmit=(e)=>{
             e.preventDefault()
@@ -130,6 +137,13 @@ const List = ({value,index})=>{
         <td>{value.user} </td>
         <td>{value.email} </td>
         <td>
+        <button className="btn btn-warning me-4" onClick={setDay} > Delete</button>
+        {day&&<Modal onClose={setDay} title="Supprimet le Client" sup={false}>
+            <span> Etes-vous sur de le Suprimer</span>
+            <hr/>
+            <button className="btn btn-danger me-3" onClick={setDay}> Annuler </button>
+            <button className="btn btn-primary" onClick={handleDelete}> Suprimer</button>
+            </Modal>}
         <button className="btn btn-primary me-4" onClick={setAdd} > Send Message</button>
         {add&&<Modal onClose={setAdd} title="Envoyer un Message ?">
             <form onSubmit={onSubmit}>
