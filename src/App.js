@@ -11,7 +11,8 @@ import { User } from './client/user'
 import { Forma } from './Home/formation';
 import { Check} from './admin/forma'
 import { Menu } from './Home/nos-form'
-
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 
 const queryClient = new QueryClient()

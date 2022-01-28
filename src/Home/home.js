@@ -1,11 +1,12 @@
 import axios from 'axios'
-import React, {  useState } from 'react'
+import React, {   useEffect, useState } from 'react'
+//import { useWindowDimensions } from 'react-native';
 import { useMutation } from 'react-query'
 import { NavBar } from '../App/navBar'
 import { useData, useIndex } from '../hook/data'
 import {useForm} from '../hook/form'
 import {useNavigate} from 'react-router-dom';
-
+import Slider from "react-slick";
 
 export const Home =()=> {
     const[user]=useData()
@@ -137,15 +138,52 @@ const Side=()=>{
 }
 
 const List=()=>{
- 
+    const [width, setWidth]   = useState(window.innerWidth);
+   
+    const updateDimensions = () => {
+        setWidth(window.innerWidth);
+      
+    }
+    useEffect(() => {
+        window.addEventListener("resize", updateDimensions);
+        return () => window.removeEventListener("resize", updateDimensions);
+    }, []);
+    
     const [form]=useForm()
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: width < 800?1:4,
+        slidesToScroll: 1
+      };
+  
     return<>
+   
     <div className="container mt-5">
         <div className="row ">
             <h4 className="fw-light"> Dernier cours en ligne ...</h4>
+           <div>
+           <Slider {...settings}>
+           
+           { form?.data.slice(0).reverse().map((v,i)=>{
+               return v.state === "on"&& <Card key={i} value={v}/>
+           })}
+           </Slider>
+           </div>
+           
+
+            <br/>
+
+            <h4 className="fw-light mt-5"> Autre cours ...</h4>
+            <div>
+            <Slider {...settings}>
             { form?.data.map((v,i)=>{
-                return v.state === "on"&& <Card key={i} value={v}/>
-            })}
+               return v.state === "on"&& <Card key={i} value={v}/>
+           })}
+             </Slider>
+            </div>
         </div>
     </div>
     </>
@@ -185,7 +223,7 @@ const Card=({value})=>{
     }
     const note = isNaN(value.note / value.nbNote)? 0 : value.note / value.nbNote
     return<>
-        <div className="col-sm-3  mt-3 mb-3 ">
+        <div className="col-sm mt-3 mb-3 me-2">
          
             <div className="card rounds x1">
          

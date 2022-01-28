@@ -40,7 +40,7 @@ const NabarDarck = ()=>{
     return <>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid ">
-                <a className="navbar-brand" href="#Nav" onClick={handAdmin}>Administration</a>
+                <span className="navbar-brand n5"  onClick={handAdmin}>Administration</span>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
                 </button>

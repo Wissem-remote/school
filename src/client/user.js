@@ -128,7 +128,7 @@ const Card =({form})=>{
             
         })
     const onSubmit=(e)=>{
-        e.preventDefault()
+        
         const values =Object.fromEntries(new FormData(e.target))
         console.log(values.note)
             const value={
@@ -313,7 +313,7 @@ const Create =()=>{
                     <option> </option>
                     <option value="javascript">JavaScript</option>
                     <option value="react">React</option>
-                    <option value="laravel">Laravel</option>
+                    <option value="angular">Angular</option>
                     <option value="python">Python</option>
                     <option value="css">CSS3</option>
                     <option value="wordpress">WordPress</option>

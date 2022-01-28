@@ -45,7 +45,7 @@ const NabarDarck = ({checks,set})=>{
     return <>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid ">
-                <a className="navbar-brand" href="#Nav">Administration</a>
+                <span className="navbar-brand n5" >Administration</span>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
                 </button>
