@@ -8,7 +8,6 @@ import { useToggle } from '../hook/toggle'
 import { Modal } from '../ui/modal'
 
 
-
 export const Logins = ()=>{
     const [setting,setSetting]=useState(0)
     const [work]=useState([<Forma/>,<Client/>])
@@ -110,6 +109,8 @@ const List = ({value,index})=>{
         })
         const {mutate}= useMutation(()=>{
             return axios.delete(`http://localhost:2000/user/delete/${value.user}`) 
+
+           
             
             })
             const handleDelete=()=>{

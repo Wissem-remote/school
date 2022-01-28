@@ -123,14 +123,6 @@ body{
     }
 }
 
-@keyframes slideDown {
-    from {
-        transform: translateY(0px);
-    }
-    to {
-        transform: translateY(30px);
-    }
-}
 
 .n5{
     cursor: pointer;

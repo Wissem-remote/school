@@ -8,7 +8,7 @@ export const NavBar = ({check,value,search=false,data,logout=true})=> {
     return <>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
   <div className="container-fluid">
-  <span className="navbar-brand mb-0 ">Navbar</span>
+  <span className="navbar-brand mb-0 "><img src="/img/logo.png"className="imgx" alt="logo"/></span>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
