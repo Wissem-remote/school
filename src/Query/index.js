@@ -1,15 +1,15 @@
 import axios from 'axios'
 
 export const getConnectAdmin = ()=>{
-    return axios('http://localhost:2000/admin');
+    return axios('https://backenduk.herokuapp.com/admin');
 } 
 
 export const getConnectUser = ()=>{
-    return axios('http://localhost:2000/users');
+    return axios('https://backenduk.herokuapp.com/users');
 } 
 
 export const getConnectForm = ()=>{
-    return axios('http://localhost:2000/form');
+    return axios('https://backenduk.herokuapp.com/form');
 } 
 
 

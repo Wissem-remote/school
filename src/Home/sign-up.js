@@ -47,7 +47,7 @@ export const Sign = ()=> {
     }
 
     const mutation = useMutation(formData => {
-        return axios.post('http://localhost:2000/users/add', formData)
+        return axios.post('https://backenduk.herokuapp.com/users/add', formData)
             
         })
         const onSubmit = (event) => {

@@ -124,7 +124,7 @@ const Card =({form})=>{
         navigate("/coures", { state:{values: index }})
     }
     const mutation = useMutation(formData => {
-        return axios.post('http://localhost:2000/form/update', formData)
+        return axios.post('https://backenduk.herokuapp.com/form/update', formData)
             
         })
     const onSubmit=(e)=>{
@@ -222,7 +222,7 @@ const Create =()=>{
     const[user]=useData()
     const[index]=useIndex()
     const mutation = useMutation(formData => {
-        return axios.post('http://localhost:2000/form/add', formData)
+        return axios.post('https://backenduk.herokuapp.com/form/add', formData)
             
         })
 
@@ -385,7 +385,7 @@ const Pass=()=>{
         users?.data[index].password === e.target.value?  setCheck(true): setCheck(false)
     }
     const mutation = useMutation(formData => {
-        return axios.post('http://localhost:2000/user/update', formData)
+        return axios.post('https://backenduk.herokuapp.com/user/update', formData)
             
         })
 
@@ -447,7 +447,7 @@ const Parms=()=>{
     const[add,setAdd]=useToggle(false)
 
     const mutation = useMutation(formData => {
-        return axios.post('http://localhost:2000/user/update', formData)
+        return axios.post('https://backenduk.herokuapp.com/user/update', formData)
             
         })
 
@@ -610,11 +610,13 @@ const Cards =({form,opacity=true , suivi=false})=>{
     const[users]=useData()
     const[index]=useIndex()
     const mutation = useMutation(formData => {
-        return axios.post('http://localhost:2000/user/update', formData)
+        return axios.post('https://backenduk.herokuapp.com/user/update', formData)
             
         })
     const handleClick=()=>{
+        
         let fly = users?.data[index].follow.filter(item => item !== form.id)
+        console.log(fly)
         const values={
             user: users?.data[index].user,
             follow:fly

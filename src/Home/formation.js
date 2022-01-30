@@ -186,7 +186,7 @@ const Card=()=>{
     const [check,setCheck]=useState(false)
     const index =location.state
     const mutation = useMutation(formData => {
-        return axios.post('http://localhost:2000/user/update', formData)
+        return axios.post('https://backenduk.herokuapp.com/user/update', formData)
             
         })
         

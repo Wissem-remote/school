@@ -119,7 +119,8 @@ const DropNot = ({children})=>{
   <hr/>
   <div  className="l1 col-12" >
     <ul className="list-unstyled col-11 m-auto">
-  {user?.data[index].msg.map((v,i)=>{
+      
+      {user?.data[index].msg.length === 0 ? <li> aucun message...</li> : user?.data[index].msg.map((v,i)=>{
                 
                 return v.length > 0 &&<li key={i} className="text-decoration-none">
                   <Link  to="/user" className="text-decoration-none">
