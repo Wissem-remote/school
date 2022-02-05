@@ -214,7 +214,7 @@ const Card=()=>{
             <div className="d-grid gap-2 col-10 m-auto mb-4">
                 {check?
                 <button   className={(form?.data[index.values].tarif === "free"&& kid)?"btn btn-primary disabled":"btn btn-primary disabled"} type="button">{form?.data[index.values].tarif === "free"? "Ajouter": "Payer"}</button>:
-                <button onClick={handleClick}   className={(form?.data[index.values].tarif === "free"&& kid)?"btn btn-primary":"btn btn-primary disabled"} type="button">{form?.data[index.values].tarif === "free"? "Ajouter": "Payer"}</button>
+                <button onClick={handleClick}   className={(form?.data[index.values].tarif === "free"&& !kid)?"btn btn-primary":"btn btn-primary disabled"} type="button">{form?.data[index.values].tarif === "free"? "Ajouter": "Payer"}</button>
 
                 }
                 <span className="text-info fw-bold fs-3 text-center">{form?.data[index.values].tarif === "pay" && form?.data[index.values].price+"$"}</span>
