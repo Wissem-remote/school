@@ -167,7 +167,7 @@ const handClick=()=>{
     return video[1] === 'on' && setAdd()
 }
 return<>
-<p    onClick={handClick}>{children}<span className="fw-lighter fs-6 text">{video[1] === 'on'? " on":" off"}</span>{add&& <Modal title={children} > 
+<p   className="s9" onClick={handClick}>{children}<span className="fw-lighter fs-6 text">{video[1] === 'on'? " on":" off"}</span>{add&& <Modal title={children} > 
 
 <YouTube videoId={getYouTubeID(video[0])} opts={opts} />
 </Modal>}

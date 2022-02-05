@@ -13,6 +13,8 @@ import { Check} from './admin/forma'
 import { Menu } from './Home/nos-form'
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import { Trans } from './Home/transport';
+import { Effaceur } from './admin/check';
 
 
 const queryClient = new QueryClient()
@@ -34,6 +36,9 @@ function App() {
    <Route path="/sign-in" element={<Signin  />} />
       <Route path="/admin" element={<Iden />} />
       <Route path="/admin/connect" element={<Logins />} />
+      <Route path="/admin/connect/check" element={<Effaceur />} />
+      <Route path="/user/:id" element={<User />} />
+      <Route path="/trans/:id" element={<Trans />} />
       <Route path="/user" element={<User />} />
       <Route path="/coures" element={<Forma />}/>
       <Route path="/admin/check" element={<Check />}/>

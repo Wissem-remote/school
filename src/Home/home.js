@@ -25,7 +25,7 @@ export const Home =()=> {
   
 
     return <>
-    <NavBar value={filter} check={setCheck} data={user}/>
+    <NavBar value={filter} check={setCheck} data={user} logout={false}/>
     {check?<FilterRed value={search}/>:<Container user={user}/>}
     
     </>

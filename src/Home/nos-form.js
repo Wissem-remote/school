@@ -10,7 +10,7 @@ export const Menu= ()=> {
     const [user]=useData()
     const parms = useParams()
     const navigate = useNavigate()
-    const check = ["javascript","react","laravel","python","wordpress","css3","autre"]
+    const check = ["javascript","react","laravel","python","wordpress","css","autre"]
     useEffect(()=>{
         !check.includes(parms.id)&& navigate("/")
     })
@@ -21,7 +21,7 @@ export const Menu= ()=> {
     </>
 }
 
-const Container = (value)=>{
+const Container = ()=>{
     const [form]=useForm()
     const parms = useParams()
     return<>

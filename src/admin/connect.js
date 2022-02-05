@@ -103,6 +103,7 @@ const Client = ()=>{
 const List = ({value,index})=>{
     const[day,setDay]=useToggle(false)
     const[add,setAdd]=useToggle(false)
+    const navigate= useNavigate()
     const mutation = useMutation(formData => {
         return axios.post('https://backenduk.herokuapp.com/user/update', formData)
             
@@ -114,7 +115,10 @@ const List = ({value,index})=>{
             
             })
             const handleDelete=()=>{
-                (()=> { mutate();  window.location.reload()})()
+                
+                mutate()
+                setDay()
+            
             }
 
         const onSubmit=(e)=>{
@@ -129,7 +133,11 @@ const List = ({value,index})=>{
             }
             
             
-            mutation.mutate(val)
+            
+                mutation.mutate(val)
+                
+                
+            
         }
 
     return<>
@@ -138,12 +146,11 @@ const List = ({value,index})=>{
         <td>{value.user} </td>
         <td>{value.email} </td>
         <td>
-        <button className="btn btn-warning me-4" onClick={setDay} > Delete</button>
+        <button className="btn btn-warning me-4" onClick={handleDelete} > Delete</button>
         {day&&<Modal onClose={setDay} title="Supprimet le Client" sup={false}>
-            <span> Etes-vous sur de le Suprimer</span>
+            <span> L'utilisateur est Delete</span>
             <hr/>
-            <button className="btn btn-danger me-3" onClick={setDay}> Annuler </button>
-            <button className="btn btn-primary" onClick={handleDelete}> Suprimer</button>
+            <button className="btn btn-primary float-end" onClick={()=>{navigate("/admin/connect/check")}}> Fermer</button>
             </Modal>}
         <button className="btn btn-primary me-4" onClick={setAdd} > Send Message</button>
         {add&&<Modal onClose={setAdd} title="Envoyer un Message ?">
@@ -191,6 +198,8 @@ const Forma=()=>{
 const Ligne=({value,index})=>{
     const [form]=useForm()
     const navigate = useNavigate()
+    const[val,setVal]=useToggle(false)
+    const[cash,setCash]=useToggle(false)
   
     const handleCheck=()=>{
         
@@ -210,9 +219,9 @@ const Ligne=({value,index})=>{
         state:"on",
         id: value.id
         }
-        
-        mutation.mutate(values)
-        window.location.reload()
+        mutation.mutate(values);
+        setVal()
+  
     }
 
     const {mutate}= useMutation(()=>{
@@ -220,9 +229,14 @@ const Ligne=({value,index})=>{
         
         })
         const handleDelete=()=>{
-            (()=> { mutate(); window.location.reload() })()
+           
+            mutate();
+            setCash()
+             
+       
         }
     return<>
+   
     <tr>
         <th scope="row">{index}</th>
         <td>{value.titreVideo}</td>
@@ -230,9 +244,23 @@ const Ligne=({value,index})=>{
         <td>{value.state+"-Line"}</td>
         <td>{value.tarif === "free"? "Gratuit": "Payant"}</td>
         <td>
-        <button className="btn btn-info me-4" onClick={handleCheck}> Check</button>
-        <button className="btn btn-warning me-4" onClick={handleDelete}> Delete</button>
-    {value.state === "off"&& <button className="btn btn-primary" onClick={onValide}> Valider</button>}    
+        <button className="btn btn-info me-4" onClick={handleCheck}> Check </button>
+        <button className="btn btn-warning me-4" onClick={handleDelete}> Delete
+        {cash&& <Modal title=" Suprimer la formation " sup={false}>
+            La Formation est Suprimer
+            <hr />
+           
+            <button className="btn btn-primary" onClick={()=>{navigate("/admin/connect/check")}}>Fermer</button>
+            </Modal>}
+        </button>
+    {value.state === "off"&& <button className="btn btn-primary" onClick={onValide}> Valider
+    {val && <Modal title="Valider la Formation" sup={false}>
+        La Formation est Valider !
+        <hr />
+        
+        <button className="btn btn-primary" onClick={()=>{navigate("/admin/connect/check")}}> Fermer</button>
+        </Modal>}
+    </button>}    
         </td>
        
     </tr>

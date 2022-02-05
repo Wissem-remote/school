@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useData, useIndex } from '../../hook/data'
 
 export const NavBar = ({check,value,search=false,data,logout=true})=> {
@@ -8,7 +8,10 @@ export const NavBar = ({check,value,search=false,data,logout=true})=> {
     return <>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
   <div className="container-fluid">
-  <span className="navbar-brand mb-0 "><img src="/img/logo.png"className="imgx" alt="logo"/></span>
+    {data?<span className="navbar-brand mb-0 "><img src="/img/logo.png"className="imgx" alt="logo"/></span>:
+    <Link to="/admin"><span className="navbar-brand mb-0 "><img src="/img/logo.png"className="imgx" alt="logo"/></span></Link>
+    }
+  
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
@@ -70,7 +73,7 @@ return<>
                     <li><Link className="dropdown-item" to="/formation/laravel" >Laravel</Link></li>
                     <li><Link className="dropdown-item" to="/formation/python" >Python</Link></li>
                     <li><Link className="dropdown-item" to="/formation/wordpress" >WordPress</Link></li>
-                    <li><Link className="dropdown-item" to="/formation/css3" >CSS3</Link></li>
+                    <li><Link className="dropdown-item" to="/formation/css" >CSS3</Link></li>
                     <li><Link className="dropdown-item" to="/formation/autre" >Autre</Link></li>
                   
                     
@@ -82,8 +85,9 @@ return<>
 
 
 const Lists=({children})=>{
+  const navigate = useNavigate()
  return<>
-   <li><a href="#link-out" onClick={()=>{(()=> { localStorage.clear(); window.location.reload()})()}} className="dropdown-item">{children}</a></li>
+   <li><p  onClick={()=>{(()=> { localStorage.clear();  navigate("/")})()}} className="dropdown-item n5">{children}</p></li>
  </>
 }
 
@@ -97,7 +101,7 @@ const DropLink=({children,item=false,log})=>{
             {item&&
               <ul className="dropdown-menu j2 mt-3 rounds " style={{right:'0px', left:'auto'}} aria-labelledby="navbar">
               <li><a href="#link-out" className="dropdown-item">Hello ! {users?.data[index].user}</a></li>
-              <ListLink to={"/user"}>Profils</ListLink>
+              <ListLink to={"/user/0"}>Profils</ListLink>
               {log?<Lists>Deconnecter Vous</Lists>:""}
               
               </ul>
@@ -123,7 +127,7 @@ const DropNot = ({children})=>{
       {user?.data[index].msg.length === 0 ? <li> aucun message...</li> : user?.data[index].msg.map((v,i)=>{
                 
                 return v.length > 0 &&<li key={i} className="text-decoration-none">
-                  <Link  to="/user" className="text-decoration-none">
+                  <Link  to="/user/5" className="text-decoration-none">
                   <div  className="alert alert-primary mb-1 " role="alert">
                 {v}
                 

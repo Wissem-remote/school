@@ -127,4 +127,10 @@ body{
 .n5{
     cursor: pointer;
 }
-
+.s9{
+    cursor: pointer;
+    font-weight: 500;
+}
+.s9:hover{
+    color: #754ffe;
+}

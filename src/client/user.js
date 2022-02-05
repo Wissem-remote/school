@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NavBar } from '../App/navBar'
 import { useData, useIndex } from '../hook/data'
 import { useForm } from '../hook/form'
-import {  useNavigate } from "react-router-dom"
+import {  useNavigate, useParams } from "react-router-dom"
 import { Accordion } from '../ui/accordion'
 import {useMutation} from "react-query"
 import axios from 'axios'
@@ -51,9 +51,11 @@ const Contents = ()=>{
 }
 
 const Board=()=>{
-    const [setting,setSetting]=useState(0)
+    const parm = useParams()
+    const [setting,setSetting]=useState(parseInt(parm.id)?parseInt(parm.id):0)
     const [work]=useState([ <Create />,<Pass/>,<Parms/>,<MyCreate/>,<Suivi/>,<Msg/>,<Learn/>])
     return<>
+    
         <div className="row mt-4">
             <div className="col-sm-3">
                         <Seting set={setSetting}/>
@@ -137,7 +139,7 @@ const Card =({form})=>{
                 nbNote: form.nbNote + 1
             }
             mutation.mutate(value)
-            
+            mutation.isSuccess&& setAdd()
     }
 
 return<>
@@ -153,29 +155,26 @@ return<>
                             <div className="col-12 d-flex justify-content-center  ">
 
                                 <div className="form-check form-check-inline ">
-                                <input className="form-check-input " type="radio"  name="note" value="1"/>
+                                <input className="form-check-input " type="radio"  name="note" value="1" required/>
                                 <label className="form-check-label " htmlFor="star1">1</label>
                                 </div>
                                 <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="note"  value="2"/>
+                                <input className="form-check-input" type="radio" name="note"  value="2" required/>
                                 <label className="form-check-label " htmlFor="star2">2</label>
                                 </div>
                                 <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="note" value="3" />
+                                <input className="form-check-input" type="radio" name="note" value="3" required/>
                                 <label className="form-check-label " htmlFor="star3">3</label>
                                 </div>
                                 <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="note" value="4" />
+                                <input className="form-check-input" type="radio" name="note" value="4"  required/>
                                 <label className="form-check-label " htmlFor="note">4</label>
                                 </div>
                                 </div> 
                                 <hr/>
-                                    <button className="btn-sm btn-primary float-end"> Noter ?</button>
+                                    <button className={mutation.isSuccess?"btn-sm btn-primary float-end":"btn-sm btn-primary float-end disabled"} > Notez ?</button>
                             </form>
                                 </Modal>}
-                           
-                            
-                           
                         </div>
                         
                 </div>
@@ -198,10 +197,7 @@ const Msg=()=>{
                 
                 return v.length > 0 && <div key={i} className="alert alert-success" role="alert">
                 {v}
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    {i}
-                    <span className="visually-hidden">New alerts</span>
-                </span>
+
                 </div>
             })} 
         </div>
@@ -219,6 +215,8 @@ const Create =()=>{
     const[check,setCheck]=useState(false)
     const[box,setBox]=useState(false)
     const[adds,setAdds]=useToggle(false)
+    const navigate = useNavigate()
+    
     const[user]=useData()
     const[index]=useIndex()
     const mutation = useMutation(formData => {
@@ -287,10 +285,15 @@ const Create =()=>{
 
     
     return<>
-         {adds&& <Modal sup={false} >
+    
+         {adds&& <Modal sup={false}  >
         Votre Formation va etre envoyer et  traiter sous peu !
         <hr/>
-        <button className="btn btn-primary float-end" onClick={()=>{window.location.reload()}}> Fermer</button>
+        <button className={mutation.isSuccess?"btn btn-primary float-end":"btn btn-primary float-end disabled"} onClick={()=>{(()=> { setAdds();  navigate("/trans/0")})()}}>{mutation.isSuccess?"Fermer"
+        :<div className="spinner-border text-light" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    } </button>
        
         </Modal>}
          <form onSubmit={onSubmit}>
@@ -376,6 +379,7 @@ const Pass=()=>{
     const[add,setAdd]=useToggle(false)
     const[users]=useData()
     const[index]=useIndex()
+    const navigate = useNavigate()
 
     const handlePass=(e)=>{
         return e.target.value.match(/[0-9a-zA-Z.*]{8,}/g)? setPass(true): setPass(false)
@@ -399,14 +403,17 @@ const Pass=()=>{
         }
         
         mutation.mutate(values)
-       
-       
+        
     }
     return<>
     {add&& <Modal sup={false} >
         Votre Password est modifier !
         <hr/>
-        <button className="btn btn-primary float-end" onClick={()=>{window.location.reload()}}> Fermer</button>
+        <button className={mutation.isLoading?"btn btn-primary float-end disabled":"btn btn-primary float-end "} onClick={()=>{navigate("/trans/1")}}> {mutation.isLoading?
+        <div className="spinner-border text-light" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+        :"Fermer"}</button>
        
         </Modal>}
     <form onSubmit={onSubmit}>
@@ -445,6 +452,7 @@ const Parms=()=>{
     const[users]=useData()
     const[index]=useIndex()
     const[add,setAdd]=useToggle(false)
+    const navigate = useNavigate()
 
     const mutation = useMutation(formData => {
         return axios.post('https://backenduk.herokuapp.com/user/update', formData)
@@ -462,7 +470,13 @@ const Parms=()=>{
      {add&& <Modal sup={false} >
         Votre Profils est modifier !
         <hr/>
-        <button className="btn btn-primary float-end" onClick={()=>{window.location.reload()}}> Fermer</button>
+        <button className={mutation.isLoading?"btn btn-primary float-end disabled":"btn btn-primary float-end "} onClick={()=>{navigate("/trans/2")}}>
+        {mutation.isLoading?
+        <div className="spinner-border text-light" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+        :"Fermer"}
+        </button>
        
         </Modal>}
         <div>
@@ -609,6 +623,7 @@ const Suivi=()=>{
 const Cards =({form,opacity=true , suivi=false})=>{
     const[users]=useData()
     const[index]=useIndex()
+    const navigate = useNavigate()
     const mutation = useMutation(formData => {
         return axios.post('https://backenduk.herokuapp.com/user/update', formData)
             
@@ -616,13 +631,13 @@ const Cards =({form,opacity=true , suivi=false})=>{
     const handleClick=()=>{
         
         let fly = users?.data[index].follow.filter(item => item !== form.id)
-        console.log(fly)
+        
         const values={
             user: users?.data[index].user,
             follow:fly
         }
         mutation.mutate(values)
-        window.location.reload()
+        mutation.isSuccess && navigate("/trans/4")
         
         
     }
