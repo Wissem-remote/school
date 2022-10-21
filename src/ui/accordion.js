@@ -57,7 +57,7 @@ const Table=({num,checks,box})=>{
         </div>
         </div>
     </div>
-        
+       
     </>
 }
 

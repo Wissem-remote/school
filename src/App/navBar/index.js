@@ -24,7 +24,7 @@ export const NavBar = ({check,value,search=false,data,logout=true})=> {
           check(e.target.value.length >0);
           value(e.target.value)
         }} 
-        type="search" placeholder="Search" aria-label="Search"/>
+        type="search" placeholder="Recherche" aria-label="Search"/>
       </form>
 } 
    
@@ -65,7 +65,7 @@ const DropList =()=>{
 return<>
   <li className=" j1  nav-item dropdown me-1">
             <a className=" nav-link  " href="#Dropdown" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Nos Formation
+                Nos Formations
             </a>
                 <ul className="dropdown-menu rounds p-2 fw-5 j2" aria-labelledby="navbarDropdown">
                     <li><Link className="dropdown-item" to="/formation/javascript" >JavaScript</Link></li>

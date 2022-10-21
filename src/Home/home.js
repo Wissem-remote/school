@@ -25,9 +25,9 @@ export const Home =()=> {
   
 
     return <>
-    <NavBar value={filter} check={setCheck} data={user} logout={false}/>
-    {check?<FilterRed value={search}/>:<Container user={user}/>}
-    
+        <NavBar value={filter} check={setCheck} data={user} logout={false}/>
+        {check?<FilterRed value={search}/>:<Container user={user}/>}
+    <div> hello</div>
     </>
     
 }
@@ -60,7 +60,7 @@ const Cardx=({value})=>{
     }
 
     const mutation = useMutation(formData => {
-        return axios.post('https://backenduk.herokuapp.com/user/update', formData)
+        return axios.post('https://geek-apps.herokuapp.com/user/update', formData)
             
         })
     const handleClick=()=>{
@@ -296,7 +296,7 @@ const Card=({value})=>{
     }
 
     const mutation = useMutation(formData => {
-        return axios.post('https://backenduk.herokuapp.com/user/update', formData)
+        return axios.post('https://geek-apps.herokuapp.com/user/update', formData)
             
         })
     const handleClick=()=>{

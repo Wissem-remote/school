@@ -74,7 +74,7 @@ const Container = ()=>{
         <div className="row ">
             <div className="  col-lg-6 rounds t3 m10" >
                 <div className="fw-light p-3">
-                <h5 className="fw-light">Contenue</h5>
+                <h5 className="fw-light">Contenu</h5>
                
                <Accor/>
                 </div>

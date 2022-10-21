@@ -47,16 +47,16 @@ export const Sign = ()=> {
     }
 
     const mutation = useMutation(formData => {
-        return axios.post('https://backenduk.herokuapp.com/users/add', formData)
+        return axios.post('https://geek-apps.herokuapp.com/users/add', formData)
             
         })
         const onSubmit = (event) => {
             event.preventDefault()
             
             const value =Object.fromEntries(new FormData(event.target))
-            Object.assign(value,{img:"https://picsum.photos/id/823",follow:[],msg:[],learn:[]})
+            const va =Object.assign(value,{img:"https://picsum.photos/id/823",follow:[],msg:["Welcome "+value.user+"!"],learn:[]})
 
-            mutation.mutate(value)
+            mutation.mutate(va)
             
             // envoie d'email service_v5vlsiz
             //console.log(value)
@@ -92,7 +92,7 @@ const FormUser = ({onSubmit,user,email,password,handlePassword,handleEmail,handl
             <div className="col"></div>
             <div className="col-sm-4">
                         <div className="mt-3 ">
-                            <h3 className="ms-3"> Renseigner vos information !</h3>
+                            <h3 className="ms-3"> Renseigner vos information </h3>
                         </div>
             <form  className="form-group"  onSubmit={onSubmit}>
                 <Field type="text" name="user"  spans={user ? "Votre username est deja utiliser !": ""} place="User Name" required onChange={handleUser}>User Name</Field>

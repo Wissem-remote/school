@@ -27,7 +27,7 @@ const Container = ()=>{
     return<>
     <div className="container">
         <div className="row mt-5">
-            <h2> Nos Formation </h2>
+            <h2> Nos Formations </h2>
         { form?.data.map((v,i)=>{
                 return (v.state === "on" && v.type === parms.id)&& <Card key={i} value={v}/>
             })}
@@ -53,7 +53,7 @@ const Card=({value})=>{
     }
 
     const mutation = useMutation(formData => {
-        return axios.post('https://backenduk.herokuapp.com/user/update', formData)
+        return axios.post('https://geek-apps.herokuapp.com/user/update', formData)
             
         })
     const handleClick=()=>{

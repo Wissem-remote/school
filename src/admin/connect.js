@@ -105,11 +105,11 @@ const List = ({value,index})=>{
     const[add,setAdd]=useToggle(false)
     const navigate= useNavigate()
     const mutation = useMutation(formData => {
-        return axios.post('https://backenduk.herokuapp.com/user/update', formData)
+        return axios.post('https://geek-apps.herokuapp.com/user/update', formData)
             
         })
         const {mutate}= useMutation(()=>{
-            return axios.delete(`https://backenduk.herokuapp.com/user/delete/${value.user}`) 
+            return axios.delete(`https://geek-apps.herokuapp.com/user/delete/${value.user}`) 
 
            
             
@@ -209,7 +209,7 @@ const Ligne=({value,index})=>{
         navigate("/admin/check", { state:{values: index }})
     }
     const mutation = useMutation(formData => {
-        return axios.post('https://backenduk.herokuapp.com/form/update', formData)
+        return axios.post('https://geek-apps.herokuapp.com/form/update', formData)
             
         })
 
@@ -225,7 +225,7 @@ const Ligne=({value,index})=>{
     }
 
     const {mutate}= useMutation(()=>{
-        return axios.delete(`https://backenduk.herokuapp.com/form/delete/${value.id}`) 
+        return axios.delete(`https://geek-apps.herokuapp.com/form/delete/${value.id}`) 
         
         })
         const handleDelete=()=>{

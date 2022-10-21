@@ -32,7 +32,7 @@ const Content=()=>{
     <div className="col">
       
     </div>
-    <div className="col-lg-10">
+    <div className="col-lg-10  ">
     <Contents/>
     </div>
     <div className="col">
@@ -60,7 +60,7 @@ const Board=()=>{
             <div className="col-sm-3">
                         <Seting set={setSetting}/>
             </div>
-            <div className="col-sm-9">
+            <div className="col-sm-9  ">
                     <Work>{work[setting]}</Work>
             </div>
         </div>
@@ -69,14 +69,14 @@ const Board=()=>{
 
 const Seting=({set})=>{
 return<>
-                        <div className="list-group text-center rounds">
+                        <div className="list-group text-center rounds shadow-lg ">
                                     <button type="button" className="list-group-item list-group-item-action " style={{borderBottom:'none'}}></button>
                                     
                                     <button type="button" className="list-group-item list-group-item-action" style={{borderBottom:'none'}} onClick={()=>{set(0)}} >Ajouter Une formation</button>
                                     <button type="button" className="list-group-item list-group-item-action" style={{borderBottom:'none'}} onClick={()=>{set(1)}} >Changer de Password</button>
                                     <button type="button" className="list-group-item list-group-item-action" style={{borderBottom:'none'}} onClick={()=>{set(2)}} >Edit Profile</button>
-                                    <button type="button" className="list-group-item list-group-item-action" style={{borderBottom:'none'}} onClick={()=>{set(3)}} >Mes Créations</button>
-                                    <button type="button" className="list-group-item list-group-item-action" style={{borderBottom:'none'}} onClick={()=>{set(4)}} >Mes Suivis</button>
+                                    <button type="button" className="list-group-item list-group-item-action" style={{borderBottom:'none'}} onClick={()=>{set(3)}} >Mes Formation</button>
+                                    <button type="button" className="list-group-item list-group-item-action" style={{borderBottom:'none'}} onClick={()=>{set(4)}} >Mes Favoris</button>
                                     <button type="button" className="list-group-item list-group-item-action" style={{borderBottom:'none'}} onClick={()=>{set(5)}} >Mes Messages</button>
                                     <button type="button" className="list-group-item list-group-item-action" style={{borderBottom:'none'}} onClick={()=>{set(6)}} >Apprentissage</button>
 
@@ -88,7 +88,7 @@ return<>
 
 const Work=({children})=>{
     return<>
-    <div className="rounds mb-4">
+    <div className="rounds mb-4 shadow-lg ">
        {children}
     </div>
     </>
@@ -126,24 +126,25 @@ const Card =({form})=>{
         navigate("/coures", { state:{values: index }})
     }
     const mutation = useMutation(formData => {
-        return axios.post('https://backenduk.herokuapp.com/form/update', formData)
+        return axios.post('https://geek-apps.herokuapp.com/form/update', formData)
             
         })
     const onSubmit=(e)=>{
-        
+        e.preventDefault()
         const values =Object.fromEntries(new FormData(e.target))
-        console.log(values.note)
+        
             const value={
                 id:form.id,
-                note: parseInt(values.note),
+                note: parseInt(values.note)+form.note,
                 nbNote: form.nbNote + 1
             }
             mutation.mutate(value)
-            mutation.isSuccess&& setAdd()
+            setAdd()
+            
     }
 
 return<>
-            <div className="col-4 x1">
+            <div className="col-4 x1  ">
                 <div className="card">
                     <img onClick={handleImg} src={`/img/${form.type}.jpg`} className="card-img-top imgx" alt="cours" width="70px" height="70px"/>
                    
@@ -220,7 +221,7 @@ const Create =()=>{
     const[user]=useData()
     const[index]=useIndex()
     const mutation = useMutation(formData => {
-        return axios.post('https://backenduk.herokuapp.com/form/add', formData)
+        return axios.post('https://geek-apps.herokuapp.com/form/add', formData)
             
         })
 
@@ -362,7 +363,7 @@ const Create =()=>{
         </div>
         <hr/>
         <div className="p-4 ">
-            {add > 3 && <button type="button" className="btn btn-warning btn-sm me-2" onClick={()=>{setAdd(add-1)}}>Delete</button>}
+            {add > 1 && <button type="button" className="btn btn-warning btn-sm me-2" onClick={()=>{setAdd(add-1)}}>Delete</button>}
             {add < 5 && <button type="button" className="btn btn-success btn-sm " onClick={()=>{setAdd(add+1)}}>Add Session</button>}
         </div>
         <hr/>
@@ -425,14 +426,14 @@ const Pass=()=>{
         <div className="row p-3">
         
             <div className="col-5">
-                <label  className="col-form-label">Your old Password</label>
+                <label  className="col-form-label">Ancien Mot Passe</label>
                 <input type="password" className="form-control" onChange={handleChange} required/>
                 <span  className={check?"form-text text-success":"form-text "}>
                     {check?"Votre Password Correspond":"Tapez votre ancienne Password"}
                     </span>
             </div>
             <div className="col-5">
-                <label  className="col-form-label">New Password</label>
+                <label  className="col-form-label">Nouveaux Mot Passe</label>
                 <input  name="password" type="password" className="form-control" required onChange={handlePass} />
                 <span   className={pass?"form-text text-success":"form-text "}>
                 Votre Password doit avoir moin 8 carractaire
@@ -455,7 +456,7 @@ const Parms=()=>{
     const navigate = useNavigate()
 
     const mutation = useMutation(formData => {
-        return axios.post('https://backenduk.herokuapp.com/user/update', formData)
+        return axios.post('https://geek-apps.herokuapp.com/user/update', formData)
             
         })
 
@@ -497,7 +498,7 @@ const Parms=()=>{
                     
                 </div>
                 <div className="col-5 pt-3 ps-4">
-                    <h4 className="fw-light"> Choisissez un Nouveaux</h4>
+                    <h4 className="fw-light"> Choisissez une Nouvelle Image</h4>
                 </div>
                 <hr/>
                     <div className="mb-3">
@@ -625,7 +626,7 @@ const Cards =({form,opacity=true , suivi=false})=>{
     const[index]=useIndex()
     const navigate = useNavigate()
     const mutation = useMutation(formData => {
-        return axios.post('https://backenduk.herokuapp.com/user/update', formData)
+        return axios.post('https://geek-apps.herokuapp.com/user/update', formData)
             
         })
     const handleClick=()=>{
